@@ -153,6 +153,10 @@ export class MatCalendarBody implements OnChanges, OnDestroy {
     }
   }
 
+  _cellFocus(cell: MatCalendarCell, event: MouseEvent): void {
+    console.log("cell focused", cell.value, cell.displayValue);
+  }
+
   /** Returns whether a cell should be marked as selected. */
   _isSelected(value: number) {
     return this.startValue === value || this.endValue === value;
