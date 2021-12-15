@@ -144,17 +144,19 @@ export class MatCalendarBody implements OnChanges, OnDestroy {
       element.addEventListener('mouseleave', this._leaveHandler, true);
       element.addEventListener('blur', this._leaveHandler, true);
     });
+    console.log('datepicker body constructor');
   }
 
   /** Called when a cell is clicked. */
   _cellClicked(cell: MatCalendarCell, event: MouseEvent): void {
+    console.log('celll clicked', cell.value);
     if (cell.enabled) {
       this.selectedValueChange.emit({value: cell.value, event});
     }
   }
 
-  _cellFocus(cell: MatCalendarCell, event: MouseEvent): void {
-    console.log("cell focused", cell.value, cell.displayValue);
+  _cellFocused(cell: MatCalendarCell, event: any): void {
+    console.log('cell focused', cell.value, cell.displayValue);
   }
 
   /** Returns whether a cell should be marked as selected. */

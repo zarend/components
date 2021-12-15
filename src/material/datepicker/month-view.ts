@@ -254,6 +254,7 @@ export class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy {
 
   /** Handles keydown events on the calendar body when calendar is in month view. */
   _handleCalendarBodyKeydown(event: KeyboardEvent): void {
+    console.log('keyboard down event', event.target);
     // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
     // disabled ones from being selected. This may not be ideal, we should look into whether
     // navigation should skip over disabled dates, and if so, how to implement that efficiently.
