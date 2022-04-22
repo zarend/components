@@ -41,6 +41,23 @@
     <label for="disable-close">Disable close</label>
     <input id="disable-close" [(ngModel)]="config.disableClose" type="checkbox">
   </div>
+  <div class="demo-field">
+    <label for="autofocus">Autofocus</label>
+    <input id="autofocus" [(ngModel)]="config.autoFocus">
+  </div>
+  <div class="demo-field">
+    <label for="aria-label">Aria label</label>
+    <input id="aria-label" [(ngModel)]="config.ariaLabel">
+  </div>
+  <div class="demo-field">
+    <label for="aria-modal">Aria modal</label>
+    <input id="aria-modal" type="checkbox" [(ngModel)]="config.ariaModal">
+  </div>
+  <div class="demo-field">
+    <label for="restore-focus">Restore focus</label>
+    <input id="restore-foxu" type="checkbox" [(ngModel)]="config.restoreFocus">
+  </div>
+
   <p>Last result: {{result}}</p>
 
   <button (click)="openJazz()">Open dialog</button>

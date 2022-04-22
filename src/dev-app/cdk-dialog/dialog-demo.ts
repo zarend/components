@@ -32,6 +32,13 @@ export class DialogDemo {
     minHeight: defaultDialogConfig.maxHeight,
     maxWidth: defaultDialogConfig.maxWidth,
     maxHeight: defaultDialogConfig.maxHeight,
+
+    // TODO: support passing non-string values
+    autoFocus: defaultDialogConfig.autoFocus,
+
+    ariaLabel: defaultDialogConfig.ariaLabel,
+    ariaModal: defaultDialogConfig.ariaModal,
+    restoreFocus: defaultDialogConfig.restoreFocus,
     data: {
       message: 'Jazzy jazz jazz',
       hmm: false,
@@ -62,6 +69,7 @@ export class DialogDemo {
   selector: 'demo-jazz-dialog',
   template: `
     <div>
+      <h2>Jazz Dialog</h2>
       <p>It's Jazz!</p>
 
       <label for="how-much">How much?</label>
