@@ -15,5 +15,5 @@ export * from './list-option';
 export * from './subheader';
 export * from './list-item-sections';
 
-export {MatListOptionCheckboxPosition} from './list-option-types';
+export {MatListOptionTogglePosition, MatListOptionCheckboxPosition} from './list-option-types';
 export {MatListOption} from './list-option';

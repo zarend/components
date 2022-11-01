@@ -72,8 +72,8 @@ export class _MatListItemGraphicBase {
 
   _isAlignedAtStart() {
     // By default, in all list items the graphic is aligned at start. In list options,
-    // the graphic is only aligned at start if the checkbox is at the end.
-    return !this._listOption || this._listOption?._getCheckboxPosition() === 'after';
+    // the graphic is only aligned at start if the checkbox/radio is at the end.
+    return !this._listOption || this._listOption?._getTogglePosition() === 'after';
   }
 }
 
