@@ -4,26 +4,48 @@
 // Padding inside of a pseudo checkbox.
 $padding: checkbox-common.$border-width * 2;
 
+@mixin _checkbox-checked-styles-with-size($box-size, $mark-size) {
+  top: math.div($box-size, 2) - math.div($mark-size, 4) -
+    math.div($box-size, 10) - checkbox-common.$border-width;
+  width: $mark-size;
+  height: math.div($mark-size - checkbox-common.$border-width, 2);
+}
+
+@mixin _checkbox-indeterminate-styles-with-size($box-size, $border-size) {
+  top: math.div($box-size - checkbox-common.$border-width, 2) - $border-size;
+  width: $box-size - checkbox-common.$border-width - (2 * $border-size);
+}
+
 /// Applies the styles that set the size of the pseudo checkbox
 @mixin size($box-size) {
-  $mark-size: $box-size - (2 * $padding);
 
   .mat-pseudo-checkbox {
     width: $box-size;
     height: $box-size;
   }
 
-  .mat-pseudo-checkbox-indeterminate::after {
-    top: math.div($box-size - checkbox-common.$border-width, 2) -
-      checkbox-common.$border-width;
-    width: $box-size - 6px;
+  .mat-pseudo-checkbox-minimal {
+    $mark-size: $box-size - $padding;
+    $border-size: 0px;
+
+    &.mat-pseudo-checkbox-checked::after {
+      @include _checkbox-checked-styles-with-size($box-size, $mark-size);
+    }
+    &.mat-pseudo-checkbox-indeterminate::after {
+      @include _checkbox-indeterminate-styles-with-size($box-size, $border-size)
+    }
   }
 
-  .mat-pseudo-checkbox-checked::after {
-    top: math.div($box-size, 2) - math.div($mark-size, 4) -
-       math.div($box-size, 10) - checkbox-common.$border-width;
-    width: $mark-size;
-    height: math.div($mark-size - checkbox-common.$border-width, 2);
+  .mat-pseudo-checkbox-full {
+    $mark-size: $box-size - (2 * $padding);
+    $border-size: checkbox-common.$border-width;
+
+    &.mat-pseudo-checkbox-checked::after {
+      @include _checkbox-checked-styles-with-size($box-size, $mark-size);
+    }
+    &.mat-pseudo-checkbox-indeterminate::after {
+      @include _checkbox-indeterminate-styles-with-size($box-size, $border-size)
+    }
   }
 }
 
