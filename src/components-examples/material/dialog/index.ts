@@ -27,6 +27,7 @@ import {
   DialogAnimationsExample,
   DialogAnimationsExampleDialog,
 } from './dialog-animations/dialog-animations-example';
+import {MatSelectModule} from '@angular/material/select';
 
 export {
   DialogContentExample,
@@ -68,6 +69,7 @@ const EXAMPLES = [
     MatInputModule,
     MatMenuModule,
     FormsModule,
+    MatSelectModule,
   ],
   declarations: EXAMPLES,
   exports: EXAMPLES,

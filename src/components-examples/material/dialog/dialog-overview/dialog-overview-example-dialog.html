@@ -3,7 +3,10 @@
   <p>What's your favorite animal?</p>
   <mat-form-field appearance="fill">
     <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="data.animal">
+    <mat-select>
+      <mat-option value="Cat">Cat</mat-option>
+      <mat-option value="Dog">Dog</mat-option>
+    </mat-select>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
