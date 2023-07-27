@@ -136,25 +136,29 @@ describe('CdkTree redesign', () => {
         expect(ariaLevels).toEqual(['2', '3', '2', '2']);
       });
 
-      it('with the right aria-expanded attrs', () => {
-        // add a child to the first node
-        let data = dataSource.data;
-        dataSource.addChild(data[2]);
-        fixture.detectChanges();
-        expect(
-          getNodes(treeElement).every(node => {
-            return node.getAttribute('aria-expanded') === 'false';
-          }),
-        ).toBe(true);
+      it('sets aria-expanded attribute according to ARIA specification', () => {
+        dataSource.clearData();
+
+        dataSource.addChild(dataSource.addChild(dataSource.addData(0)));
+
+        const grandParentEl = treeElement.querySelector('cdk-tree-node[aria-level="1"]');
+        const parentEl = treeElement.querySelector('cdk-tree-node[aria-level="2"]');
+        const childEl = treeElement.querySelector('cdk-tree-node[aria-level="3"]');
+
+        expect(grandParentEl!.getAttribute('aria-expanded')).toBe('false');
+        expect(parentEl!.getAttribute('aria-expanded')).toBe('false');
+        expect(childEl!.hasAttribute('aria-expanded'))
+          .withContext('expecting node with no children not have have aria-expanded attribute')
+          .toBeNull();
 
         component.expandAll();
         fixture.detectChanges();
 
-        expect(
-          getNodes(treeElement).every(node => {
-            return node.getAttribute('aria-expanded') === 'true';
-          }),
-        ).toBe(true);
+        expect(grandParentEl!.getAttribute('aria-expanded')).toBe('true');
+        expect(parentEl!.getAttribute('aria-expanded')).toBe('true');
+        expect(childEl!.hasAttribute('aria-expanded'))
+          .withContext('expecting node with no children not have have aria-expanded attribute')
+          .toBeNull();
       });
 
       it('with the right data', () => {
@@ -799,7 +803,7 @@ describe('CdkTree redesign', () => {
       it('with the right aria-expanded attrs', () => {
         expect(
           getNodes(treeElement).every(node => {
-            return node.getAttribute('aria-expanded') === 'false';
+            return node.getAttribute('aria-expanded') === null;
           }),
         ).toBe(true);
 
@@ -813,7 +817,7 @@ describe('CdkTree redesign', () => {
         fixture.detectChanges();
 
         const ariaExpanded = getNodes(treeElement).map(n => n.getAttribute('aria-expanded'));
-        expect(ariaExpanded).toEqual(['false', 'true', 'false', 'false']);
+        expect(ariaExpanded).toEqual([null, 'true', null, null]);
       });
 
       it('should expand/collapse the node multiple times', () => {
@@ -1229,15 +1233,26 @@ class FakeDataSource extends DataSource<TestData> {
     return child;
   }
 
-  addData(level: number = 1) {
+  addData(level: number = 1): TestData {
     const nextIndex = ++this.dataIndex;
 
     let copiedData = this.data.slice();
-    copiedData.push(
-      new TestData(`topping_${nextIndex}`, `cheese_${nextIndex}`, `base_${nextIndex}`, level),
+    const newData = new TestData(
+      `topping_${nextIndex}`,
+      `cheese_${nextIndex}`,
+      `base_${nextIndex}`,
+      level,
     );
+    copiedData.push(newData);
 
     this.data = copiedData;
+
+    return newData;
+  }
+
+  clearData() {
+    this.data = [];
+    this.dataIndex = 0;
   }
 
   getRecursiveData(nodes: TestData[] = this._dataChange.getValue()): TestData[] {
