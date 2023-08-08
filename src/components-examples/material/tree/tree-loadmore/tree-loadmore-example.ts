@@ -158,11 +158,11 @@ export class TreeLoadmoreExample {
   isLoadMore = (_: number, _nodeData: LoadmoreFlatNode) => _nodeData.item === LOAD_MORE;
 
   /** Load more nodes from data source */
-  loadMore(item: string) {
+  loadMore = (item: string) => {
     this._database.loadMore(item);
-  }
+  };
 
-  loadChildren(node: LoadmoreFlatNode) {
+  loadChildren = (node: LoadmoreFlatNode) => {
     this._database.loadMore(node.item, true);
-  }
+  };
 }
